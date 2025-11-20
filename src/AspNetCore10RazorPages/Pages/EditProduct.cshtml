@@ -1,0 +1,87 @@
+﻿@page "/edit-product/{id:int}"
+@using AspNetCore10RazorPages.ServiceDefaults.Entities
+@using Microsoft.AspNetCore.Components
+
+@model AspNetCore10RazorPages.Pages.EditProductModel
+@{
+    var id = Model.ID;
+}
+
+<table>
+    <tbody>
+        <tr>
+            <td>Product ID:</td>
+            <td>@id</td>
+            <td>@Html.ValidationMessageFor(x=>x.GetProduct.ProductID)</td>
+        </tr>
+        <tr>
+            <td>Product Name:</td>
+            <td><input asp-for="GetProduct.ProductName" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.ProductName)</td>
+        </tr>
+        <tr>
+            <td>Supplier Name:</td>
+            <td><select asp-items="Model.GetSuppliersSel"><option></option></select></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.SupplierID)</td>
+        </tr>
+        <tr>
+            <td>Category Name:</td>
+            <td><select asp-items="Model.GetCategoriesSel"><option></option></select></td> 
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.ProductID)</td>
+        </tr>
+        <tr>
+            <td>Quantity Per Unit:</td>
+            <td><input asp-for="GetProduct.QuantityPerUnit" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.QuantityPerUnit)</td>
+        </tr>
+        <tr>
+            <td>Unit Price:</td>
+            <td><input asp-for="GetProduct.UnitPrice" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.UnitPrice)</td>
+        </tr>
+        <tr>
+            <td>UnitsInStock:</td>
+            <td><input asp-for="GetProduct.UnitsInStock" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.UnitsInStock)</td>
+        </tr>
+        <tr>
+            <td>UnitsOnOrder:</td>
+            <td><input asp-for="GetProduct.UnitsOnOrder" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.UnitsOnOrder)</td>
+        </tr>
+        <tr>
+            <td>ReorderLevel:</td>
+            <td><input asp-for="GetProduct.ReorderLevel" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.ReorderLevel)</td>
+        </tr>
+        <tr>
+             <td>Discontinued:</td>
+            <td><input asp-for="GetProduct.Discontinued" /></td>
+            <td>@Html.ValidationMessageFor(x => x.GetProduct.Discontinued)</td  
+        </tr>
+       <tr>
+           <td></td>
+           <td><button type="submit" class="btn btn-info">Update</button></td>
+            <td></td>
+       </tr>
+    </tbody>
+</table>
+@functions {
+
+    public Products GetProduct;
+
+    [Parameter]
+    public int id { get; set; }
+
+    
+    public async Task OnGet()
+    {
+        Model.ID = id;
+    }
+
+    public async Task OnPost()
+    {
+        
+    }
+
+}

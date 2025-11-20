@@ -1,0 +1,65 @@
+﻿@page
+@using AspNetCore10RazorPages.ServiceDefaults.Entities;
+@model IndexModel
+@inject NorthwindContext db
+@{
+    ViewData["Title"] = "Home page";
+    var products = Model.GetProducts;
+}
+@section Styles {
+    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+}
+<div class="text-center">
+    @if (products.Any())
+    {
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Supplier</th>
+                    <th>Category</th>
+                    <th>QuantityPerUnit</th>
+                    <th>UnitPrice</th>
+                    <th>UnitsInStock</th>
+                    <th>UnitsOnOrder</th>
+                    <th>ReorderLevel</th>
+                    <th>Discontinued</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody> 
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.ProductID</td>
+                        <td>@product.ProductName</td>
+                        <td>@Model.GetSupplierName(product.SupplierID.Value)</td>
+                        <td>@Model.GetCategoryName(product.CategoryID.Value)</td>
+                        <td>@product.QuantityPerUnit</td>
+                        <td>@product.UnitPrice?.ToString("C")</td>
+                        <td>@product.UnitsInStock</td>
+                        <td>@product.UnitsOnOrder</td>
+                        <td>@product.ReorderLevel</td>
+                        <td>@product.Discontinued</td>
+                        <td></td>
+                        <td><a asp-page="/EditProduct" asp-route-id="@product.ProductID">Edit</a></td>
+                    </tr>
+                }
+            </tbody>
+            </table>
+    }
+    else
+    {
+        
+    }
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
